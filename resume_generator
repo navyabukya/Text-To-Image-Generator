@@ -1,0 +1,70 @@
+from flask import Flask, render_template, request, jsonify
+
+app = Flask(_name_)
+
+@app.route('/')
+def home():
+    return render_template('html1.html')
+
+@app.route('/generate_resume', methods=['POST'])
+def generate_resume():
+    try:
+        data = request.get_json()
+
+        # Construct the resume output
+        resume = f"""
+        📄 *Generated Resume*
+        ---------------------------------------
+        👤 Name: {data.get('first_name', '')} {data.get('last_name', '')}
+        📧 Email: {data.get('email', '')}
+        📱 Mobile: {data.get('mobile', '')}
+
+        🎓 *Education:*
+        - B.Tech: {data.get('btech', '')}
+        - Intermediate: {data.get('intermediate', '')}
+        - Schooling: {data.get('schooling', '')}
+
+        🌍 *Languages Known:*
+        - {data.get('languages', '')}
+
+        🛠 *Skills:*
+        - Programming Languages: {data.get('programming', '')}
+        - Tools: {data.get('tools', '')}
+        - Frameworks: {data.get('frameworks', '')}
+        - Technologies: {data.get('technologies', '')}
+
+        🔗 *Social Links:*
+        - LinkedIn: {data.get('linkedin', '')}
+        - GitHub: {data.get('github', '')}
+        - LeetCode: {data.get('leetcode', '')}
+        - CodeChef: {data.get('codechef', '')}
+        - Codeforces: {data.get('codeforces', '')}
+        - HackerRank: {data.get('hackerrank', '')}
+
+        💼 *Experience:*
+        {data.get('experience', '')}
+
+        🏆 *Projects:*
+        {data.get('projects', '')}
+
+        🎖 *Achievements:*
+        {data.get('achievements', '')}
+
+        📜 *Certificates:*
+        {data.get('certificates', '')}
+
+        🎭 *Hobbies:*
+        {data.get('hobbies', '')}
+
+        🌟 *Qualities:*
+        {data.get('qualities', '')}
+        ---------------------------------------
+        """
+
+        return jsonify({'resume': resume})
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+if _name_ == '_main_':
+    app.run(debug=True)
